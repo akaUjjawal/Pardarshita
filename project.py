@@ -124,7 +124,7 @@ def init_database():
                 VALUES (101, 'Shatabdi Express', 'Delhi', 'Bhopal', 50, 2)
             ''')
             cursor.execute('''
-                INSERT OR IGNORE INTO trains VALUES (train_no, train_name, source, dest, seats_total, seats_avail)
+                INSERT OR IGNORE INTO trains (train_no, train_name, source, dest, seats_total, seats_avail)
                 VALUES (102, 'Rajdhani Express', 'Mumbai', 'Kolkata', 60, 10)
             ''')
 
@@ -553,12 +553,12 @@ def book_ticket(name, train_no):
         if seats_avail > 0:
             pnr = "PNR" + str(random.randint(10000000, 99999999))
 
-                cursor.execute('''
+            cursor.execute('''
                 INSERT INTO bookings (pnr, name, train_no, status)
                 VALUES (?, ?, ?, ?)
             ''', (pnr, name, train_no, 'CONFIRMED'))
 
-                cursor.execute('''
+            cursor.execute('''
                 UPDATE trains
                 SET seats_avail = seats_avail - 1
                 WHERE train_no = ?
